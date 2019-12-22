@@ -25,10 +25,10 @@ export class HomePage {
     loading.present();
 
 
+
     this._http.get<Feed[]>('http://localhost:8080/feeds').subscribe(
-      (feeds)=>{
-          this.feeds = feeds
-          console.log(feeds)
+      (dados)=>{
+          this.feeds = dados
           loading.dismiss();
       },
       (err: HttpErrorResponse) => {
