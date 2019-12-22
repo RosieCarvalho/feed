@@ -1,7 +1,0 @@
-{
-  "name": "feedApp",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
