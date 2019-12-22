@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { DetalhesPage } from '../pages/detalhes/detalhes';
 import { AdicionarfeedPage } from '../pages/adicionarfeed/adicionarfeed';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FeedServiceProvider } from '../providers/feed-service/feed-service';
 
 @NgModule({
   declarations: [MyApp, HomePage, DetalhesPage, AdicionarfeedPage],
@@ -18,7 +19,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    FeedServiceProvider
   ]
 })
 export class AppModule {}
