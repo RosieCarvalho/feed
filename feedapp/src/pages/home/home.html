@@ -1,7 +1,7 @@
 <ion-header>
   <ion-segment [(ngModel)]="page" color="secondary">
 
-    <button ion-button>
+    <button ion-button color="secondary">
       <ion-icon name="camera" (click)="openNavAddFeed()"></ion-icon>
     </button>
 
@@ -19,6 +19,7 @@
 
 <ion-content passing>
   <ion-slides #slider (ionSlideWillChange)="moveButton($event)">
+
     <ion-slide>
       <!-- Feed      -->
       <ion-list>
@@ -42,34 +43,20 @@
 
     </ion-slide>
 
+
     <!-- avisos -->
     <ion-slide>
       <!--list of trips-->
-      <!-- *ngFor="let trip of trips" -->
       <ion-list>
-        <ion-item>
+        <ion-item *ngFor="let aviso of avisos">
           <ion-card>
             <img src="C:/Users/roses/Desktop/teste.jpg" />
-            <ion-card-title>Madison, WI</ion-card-title>
+            <ion-card-title>{{ aviso.titulo}}</ion-card-title>
             <ion-card-content>
-              Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-              Wisconsin
-              Territory in 1836.
+              {{ aviso.legenda }}
             </ion-card-content>
           </ion-card>
         </ion-item>
-        <ion-item>
-          <ion-card>
-            <img src="C:/Users/roses/Desktop/teste.jpg" />
-            <ion-card-title>Madison, WI</ion-card-title>
-            <ion-card-content>
-              Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the
-              Wisconsin
-              Territory in 1836.
-            </ion-card-content>
-          </ion-card>
-        </ion-item>
-
       </ion-list>
     </ion-slide>
 

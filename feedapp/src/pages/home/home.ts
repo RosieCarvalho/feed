@@ -3,6 +3,7 @@ import { NavController, Slides, LoadingController, AlertController } from "ionic
 import { DetalhesPage } from "../detalhes/detalhes";
 import { AdicionarfeedPage } from "../adicionarfeed/adicionarfeed";
 import { Feed } from "../../modelos/feed";
+import { Aviso} from "../../modelos/aviso";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 
 
@@ -15,6 +16,7 @@ export class HomePage {
   page = "0";
 
   public feeds : Feed[];
+  public avisos : Aviso[];
   constructor(public navCtrl: NavController, private _http: HttpClient,
     private _loadingCtrl: LoadingController, private _alertCtrl: AlertController) {
 
@@ -25,7 +27,7 @@ export class HomePage {
     loading.present();
 
 
-
+    /* Chamada Api feeds */
     this._http.get<Feed[]>('http://localhost:8080/feeds').subscribe(
       (dados)=>{
           this.feeds = dados
@@ -44,6 +46,28 @@ export class HomePage {
         })
       }
       );
+
+      /* Chamada Api avisos */
+    this._http.get<Aviso[]>('http://localhost:8080/avisos').subscribe(
+      (dados)=>{
+          this.avisos = dados
+
+      },
+      (err: HttpErrorResponse) => {
+        console.log(err);
+
+        this._alertCtrl.create({
+          title: 'Falha na conexão',
+          subTitle: 'Não foi possível carregar a lista de carros. Tente novamente mais tarde.',
+          buttons: [
+            { text: 'Ok' }
+          ]
+        })
+      }
+      );
+
+
+
 
   }
 
