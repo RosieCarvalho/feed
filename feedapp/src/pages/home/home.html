@@ -1,8 +1,14 @@
+
 <ion-header>
+  <ion-navbar no-border-bottom text-center>
+    <ion-title>
+      FeddsApp
+    </ion-title>
+  </ion-navbar>
   <ion-segment [(ngModel)]="page" color="secondary">
 
-    <button ion-button color="secondary">
-      <ion-icon name="camera" (click)="openNavAddFeed()"></ion-icon>
+    <button ion-button color="secondary" >
+      <ion-icon name="camera"  (click)="openNavAddFeed()"  ></ion-icon>
     </button>
 
     <ion-segment-button value="0" >
@@ -20,103 +26,85 @@
 <ion-content>
 <div [ngSwitch]="page">
       <!-- Feed      -->
-      <ion-list *ngSwitchCase="0">
-        <ion-item *ngFor="let feed of feeds" (click) ="openNavDetailsPage()">
+      <ion-list *ngSwitchCase="0" >
+        <ion-item-sliding *ngFor="let feed of feeds" (click) ="openNavDetailsPage(feed)">
+        <ion-item >
           <ion-card>
+              <h4>{{feed.usuarios.nome}}</h4>
+            <img src={{feed.feeds.url_imagem}} />
 
-            <img src="/../assets/imgs/logo.png" />
-            <ion-card-content>
-              <ion-card-title>
-                {{ feed.titulo }}
-              </ion-card-title>
+              <h3 >
+                {{ feed.feeds.titulo }}
+              </h3>
               <p>
-                {{ feed.legenda }}
+                {{ feed.feeds.legenda }}
               </p>
-            </ion-card-content>
+
 
           </ion-card>
         </ion-item>
+        </ion-item-sliding>
       </ion-list>
 
       <!-- Avisos -->
+
       <ion-list *ngSwitchCase="1">
-        <ion-item *ngFor="let aviso of avisos" >
-          <ion-card (click) ="openNavDetailsPage()">
-            <img src="C:/Users/roses/Desktop/teste.jpg" />
-            <ion-card-title>{{ aviso.titulo}}</ion-card-title>
-            <ion-card-content>
+
+          <h2>{{permissoes}}</h2>
+        <ion-item *ngFor="let aviso of avisos"  (click) ="openNavDetailsPageAviso(aviso)">
+
+          <ion-card >
+            <img src="{{aviso.url_imagem}}" />
+            <h3>
+              {{ aviso.titulo }}
+            </h3>
+            <p>
               {{ aviso.legenda }}
-            </ion-card-content>
+            </p>
           </ion-card>
         </ion-item>
+        <!-- Colors -->
       </ion-list>
 
 
       <!-- parcerias -->
-      <ion-list *ngSwitchCase="2" no-lines>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
+      <ion-item>
+      <ion-thumbnail item-start>
+        <button *ngSwitchCase="2" ion-button icon-end color="light" right (click)="openNavCat()">
+          <ion-icon name="funnel" ></ion-icon>
+        </button>
+        </ion-thumbnail>
+          <ion-label *ngIf="filter">Categorias</ion-label>
+
+          <ion-select [(ngModel)]="catSelect" *ngIf="filter" color="Success" >
+            <ion-option *ngFor="let c of cat" [value]="c.id" (ionSelect)="OnfilterParceiros()">
+              {{c.nome}}
+            </ion-option>
+          </ion-select>
+
         </ion-item>
-        <ion-item>
+
+      <ion-list *ngSwitchCase="2">
+        <ion-item *ngFor="let p of parcerias" >
           <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
+            <img src="{{p.url_imagem}}">
           </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
+          <h2>{{p.titulo}}</h2>
+          <p>{{ p.legenda}}</p>
         </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-totoro.png">
-          </ion-thumbnail>
-          <h2>My Neighbor Totoro</h2>
-          <p>Hayao Miyazaki • 1988</p>
-        </ion-item>
+
       </ion-list>
+
 </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar text-center>
+  <button ion-button small icon-end color="secondary" (click)="openNavAddAviso()"
+    [hidden]="!permissao">+ Avisos</button>
+
+    <button  ion-button small icon-end color="secondary" (click)="openNavAddParceria()"
+      [hidden]="!permissao">+ Parcerias</button>
+  </ion-toolbar >
+</ion-footer>
+
+

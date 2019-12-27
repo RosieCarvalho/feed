@@ -1,0 +1,53 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title center>login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding >
+
+        <h3 class="titulo">Feeds APP</h3>
+
+<form [formGroup]="credentialsForm">
+  <ion-item>
+    <ion-label floating>Nome</ion-label>
+    <ion-input [formControl]="credentialsForm.controls['nome']"  [(ngModel)]="nome"  type="nome"></ion-input>
+
+  </ion-item>
+
+
+    <div *ngIf="!credentialsForm.controls.nome.valid " class="validator-error" text-center>
+      Adicione seu nome de Usuário
+    </div>
+
+
+
+
+  <ion-item>
+    <ion-label floating>Senha</ion-label>
+    <ion-input [formControl]="credentialsForm.controls['password']" type="password" [(ngModel)]="senha" ></ion-input>
+  </ion-item>
+
+  <div *ngIf="!credentialsForm.controls.password.valid " class="validator-error" text-center>
+    Adicione uma senha
+  </div>
+
+  <ion-row>
+    <ion-col text-center>
+      <button ion-button block  [disabled]="!credentialsForm.valid" color="secondary"(click)="login()" >
+        Entrar
+      </button>
+    </ion-col>
+  </ion-row>
+
+
+  </form>
+
+</ion-content>
+
+<style>
+  .titulo{
+    text-align: center;
+  }
+</style>

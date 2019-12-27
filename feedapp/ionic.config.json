@@ -1,5 +1,7 @@
 {
   "name": "appmateus",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

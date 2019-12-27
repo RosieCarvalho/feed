@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { Feed } from "../../modelos/feed";
 /**
  * Generated class for the DetalhesPage page.
  *
@@ -14,8 +14,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'detalhes.html',
 })
 export class DetalhesPage {
+  public feed: Feed;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.feed = this.navParams.get('feedEscolha');
+
   }
 
   ionViewDidLoad() {

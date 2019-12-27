@@ -1,0 +1,53 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Adicionar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Categoria:</ion-label>
+    <ion-select [(ngModel)]="catSelect">
+      <ion-option *ngFor="let cat of categorias" [value]="cat.id">
+        {{cat.nome}}
+      </ion-option>
+    </ion-select>
+  </ion-item>
+  <form [formGroup]="parceriaForm" (ngSubmit)="publicar()"   #formulario="ngForm">
+    <ion-item>
+      <ion-label stacked>Titulo:</ion-label>
+      <ion-input [formControl]="parceriaForm.controls['titulo']"  name="titulo"></ion-input >
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Legenda:</ion-label>
+      <ion-input  name="legenda" [formControl]="parceriaForm.controls['legenda']"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>telefone:</ion-label>
+      <ion-input  name="telefone" [formControl]="parceriaForm.controls['telefone']"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Endereço:</ion-label>
+      <ion-input  [formControl]="parceriaForm.controls['endereco']" name="endereco"></ion-input>
+    </ion-item>
+
+  </form>
+
+
+    <ion-item>
+  <ion-label stacked>imagem:</ion-label>
+  </ion-item>
+    <button ion-button color="light" full (click)="openImageCamera()">Tirar Foto</button>
+    <button ion-button color="light" full (click)="openImageGaleria()">Enviar Foto</button>
+
+
+  <ion-fab top right edge>
+    <button ion-fab (click)="formulario.ngSubmit.emit()"  [disabled]="!parceriaForm.valid">
+      Publicar
+      <!--  <ion-icon name="arrow-dropright"></ion-icon> -->
+    </button>
+  </ion-fab>
+
+
+</ion-content>
